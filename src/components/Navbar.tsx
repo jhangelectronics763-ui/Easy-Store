@@ -84,36 +84,73 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200 text-slate-800 shadow-sm">
-      {/* 1. Top Ribbon matching Image 1 */}
-      <div className="bg-[#0b3c68] text-white text-[11px] sm:text-xs py-1.5 px-4 font-medium border-b border-[#082d4f]">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
-            <div className="flex items-center gap-1.5 text-white/95">
-              <Truck className="w-3.5 h-3.5 text-cyan-300" />
-              <span>Free Delivery All Over Pakistan</span>
+      {/* 1. Top Ribbon & Live Running Headline Ticker (مارکی ہیڈ لائن نیوز اسکرولر) */}
+      <div className="bg-[#0b3c68] text-white text-[11px] sm:text-xs py-1.5 px-3 sm:px-4 font-medium border-b border-[#082d4f] overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          {/* Running Headline Ticker (چلتتی ہوئی ہیڈ لائن) with Founder Avatar */}
+          <div className="flex-1 overflow-hidden relative flex items-center gap-2 mr-2">
+            {/* Live Ticker Tag with Owner Badge */}
+            <div className="shrink-0 flex items-center gap-1.5 bg-[#0284c7] text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-xs">
+              <img
+                src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+                alt="Founder Abdullah"
+                referrerPolicy="no-referrer"
+                className="w-4 h-4 rounded-full object-cover ring-1 ring-white/80"
+              />
+              <span className="animate-pulse">●</span>
+              <span className="hidden xs:inline">ہیڈ لائن: اونر عبداللہ</span>
+              <span className="xs:hidden">LIVE</span>
             </div>
-            <div className="hidden md:flex items-center gap-1.5 text-white/95">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-              <span>100% Original Products</span>
-            </div>
-            <div className="hidden lg:flex items-center gap-1.5 text-white/95">
-              <PhoneCall className="w-3.5 h-3.5 text-cyan-300" />
-              <span>24/7 Customer Support: <strong>+92 346 7792177</strong></span>
+
+            {/* Continuous Marquee Ticker */}
+            <div className="overflow-hidden whitespace-nowrap flex-1 mask-fade">
+              <div className="animate-marquee flex items-center gap-8 text-[11px] text-white/95 font-medium tracking-wide">
+                <span className="flex items-center gap-1.5">
+                  <span className="text-amber-300 font-bold">★ Easy Store Official:</span>
+                  <span>خوش آمدید! اونر عبداللہ کی زیر نگرانی 100 فیصد اصلی برانڈڈ الیکٹرانکس، موبائل اور گیجٹس پاکستان بھر میں دستیاب ہیں</span>
+                </span>
+                <span className="text-cyan-300">✦</span>
+                <span className="flex items-center gap-1.5">
+                  <Truck className="w-3.5 h-3.5 text-cyan-300 inline" />
+                  <span>پورے پاکستان میں تیز رفتار کیش آن ڈیلیوری (Free Fast COD Across Pakistan)</span>
+                </span>
+                <span className="text-cyan-300">✦</span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400 inline" />
+                  <span>آفیشل برانڈ وارنٹی اور 7 دنوں کی آسان واپسی کی سہولت</span>
+                </span>
+                <span className="text-cyan-300">✦</span>
+                <span className="flex items-center gap-1.5">
+                  <PhoneCall className="w-3.5 h-3.5 text-cyan-300 inline" />
+                  <span>24/7 کسٹمر سپورٹ و ہیلپ لائن: <strong className="text-white">+92 346 7792177</strong></span>
+                </span>
+                <span className="text-cyan-300">✦</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="text-amber-300 font-bold">★ Easy Store Official:</span>
+                  <span>خوش آمدید! اونر عبداللہ کی زیر نگرانی 100 فیصد اصلی برانڈڈ الیکٹرانکس، موبائل اور گیجٹس پاکستان بھر میں دستیاب ہیں</span>
+                </span>
+                <span className="text-cyan-300">✦</span>
+                <span className="flex items-center gap-1.5">
+                  <Truck className="w-3.5 h-3.5 text-cyan-300 inline" />
+                  <span>پورے پاکستان میں تیز رفتار کیش آن ڈیلیوری (Free Fast COD Across Pakistan)</span>
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 sm:gap-4 text-white/95">
+          {/* Right Action buttons */}
+          <div className="flex items-center gap-2 sm:gap-4 text-white/95 shrink-0 text-[11px]">
             <button
               onClick={() => onNavigate('tracking')}
-              className="hover:underline flex items-center gap-1 text-[11px] cursor-pointer"
+              className="hover:underline hidden sm:flex items-center gap-1 cursor-pointer"
             >
-              <span>Track Your Order</span>
+              <span>Track Order</span>
             </button>
-            <span className="opacity-40">|</span>
+            <span className="opacity-40 hidden sm:inline">|</span>
             {isAuthenticated ? (
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="hover:underline flex items-center gap-1 text-[11px] font-bold text-cyan-200 cursor-pointer"
+                className="hover:underline flex items-center gap-1 font-bold text-cyan-200 cursor-pointer"
               >
                 <span>Hi, {user?.name?.split(' ')[0]}</span>
               </button>
@@ -121,22 +158,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="hover:text-cyan-200 font-bold transition-colors cursor-pointer text-[11px] bg-white/10 hover:bg-white/20 px-2 py-0.5 rounded"
+                  className="hover:text-cyan-200 font-bold transition-colors cursor-pointer text-[10px] sm:text-[11px] bg-white/10 hover:bg-white/20 px-2 py-0.5 rounded"
                 >
                   Login (لاگ ان)
                 </button>
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="hover:text-cyan-200 font-bold transition-colors cursor-pointer text-[11px] hidden sm:inline"
+                  className="hover:text-cyan-200 font-bold transition-colors cursor-pointer text-[11px] hidden md:inline"
                 >
                   Sign Up (رجسٹریشن)
                 </button>
               </div>
             )}
-            <span className="opacity-40 hidden md:inline">|</span>
-            <div className="hidden md:flex items-center gap-1.5 font-semibold text-emerald-300">
+            <span className="opacity-40 hidden lg:inline">|</span>
+            <div className="hidden lg:flex items-center gap-1.5 font-semibold text-emerald-300">
               <span className="text-sm">🇵🇰</span>
-              <span>Pakistan&apos;s Trusted Store</span>
+              <span>Trusted Store</span>
             </div>
           </div>
         </div>
@@ -380,20 +417,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-[11px] font-semibold mt-0.5">Cart</span>
             </button>
 
-            {/* Admin Management Button */}
+            {/* Owner & Admin Management Button with Founder Abdullah Portrait */}
             <button
               onClick={handleAdminClick}
-              title={isAdminUnlocked ? 'Admin Management (Active)' : 'Admin Portal (Passcode Required)'}
-              className={`hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[11px] font-bold border transition-colors cursor-pointer ${
+              title={isAdminUnlocked ? 'Admin Portal (Active) - Founder Abdullah' : 'Admin Portal (اونر عبداللہ)'}
+              className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-bold border transition-all cursor-pointer ${
                 currentView === 'admin'
-                  ? 'bg-[#0284c7] text-white border-[#0284c7] shadow-sm'
+                  ? 'bg-[#0284c7] text-white border-[#0284c7] shadow-sm ring-2 ring-sky-300'
                   : isAdminUnlocked
-                  ? 'bg-sky-50 text-[#0284c7] border-sky-200'
-                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                  ? 'bg-sky-50 text-[#0284c7] border-sky-300 hover:bg-sky-100'
+                  : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-sky-300'
               }`}
             >
-              {isAdminUnlocked ? <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> : <Shield className="w-3.5 h-3.5 text-slate-500" />}
-              <span>Admin</span>
+              <img
+                src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+                alt="Founder Abdullah"
+                referrerPolicy="no-referrer"
+                className="w-5 h-5 rounded-full object-cover ring-1 ring-sky-400"
+              />
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[10px] text-slate-400 font-medium">Owner</span>
+                <span className="text-[11px] font-bold text-slate-800">عبداللہ</span>
+              </div>
+              {isAdminUnlocked ? <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 ml-0.5" /> : <Shield className="w-3 h-3 text-slate-400 ml-0.5" />}
             </button>
 
             {/* Mobile menu trigger */}

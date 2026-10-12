@@ -88,9 +88,30 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdminGate }) =
             Pakistan&apos;s trusted online shopping destination for mobiles, laptops, electronics, cameras, fashion, home &amp; living with authentic guarantees and Cash on Delivery.
           </p>
 
+          {/* Founder & Store Owner Profile Card */}
+          <div className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 border border-slate-200/80 max-w-sm shadow-xs">
+            <img
+              src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+              alt="Founder Abdullah"
+              referrerPolicy="no-referrer"
+              className="w-12 h-12 rounded-xl object-cover ring-2 ring-[#0284c7] shrink-0"
+            />
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-slate-900 text-xs">عبداللہ (Abdullah)</span>
+                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-sky-100 text-[#0284c7]">
+                  Founder &amp; Owner
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 leading-tight mt-0.5">
+                Easy Store پاکستان کے بانی و نگران — معیاری اشیاء اور قابل اعتماد کسٹمر سروس کی مکمل گارنٹی
+              </p>
+            </div>
+          </div>
+
           <div className="space-y-1 text-xs text-slate-600 pt-1">
             <p><strong>WhatsApp &amp; Helpline:</strong> +92 346 7792177</p>
-            <p><strong>Support Email:</strong> support@easystore.pk</p>
+            <p><strong>Support Email:</strong> jhangelectronics763@gmail.com</p>
             <p><strong>Head Office:</strong> Tech Plaza, Gulberg III, Lahore, Pakistan</p>
           </div>
         </div>

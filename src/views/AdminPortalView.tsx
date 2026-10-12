@@ -44,7 +44,8 @@ import {
   MapPin,
   Check,
   Send,
-  MessageSquare
+  MessageSquare,
+  ShieldCheck
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
@@ -612,29 +613,49 @@ export const AdminPortalView: React.FC<AdminPortalViewProps> = ({
             </button>
 
             {/* User Profile */}
+            {/* Store Owner & Super Admin Profile */}
             <div className="relative">
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="flex items-center gap-2 hover:bg-white/10 px-2 py-1.5 rounded-xl transition-colors cursor-pointer"
+                className="flex items-center gap-2.5 hover:bg-white/10 px-2 py-1.5 rounded-xl transition-colors cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-full bg-white text-[#0284c7] font-black text-xs flex items-center justify-center shadow-xs">
-                  A
-                </div>
+                <img
+                  src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+                  alt="Founder Abdullah"
+                  referrerPolicy="no-referrer"
+                  className="w-8 h-8 rounded-full object-cover ring-2 ring-white/80 shadow-xs"
+                />
                 <div className="hidden md:block text-left leading-tight">
-                  <p className="text-xs font-bold text-white">Admin</p>
-                  <p className="text-[10px] text-sky-200">Super Admin</p>
+                  <p className="text-xs font-bold text-white flex items-center gap-1">
+                    <span>عبداللہ (Owner)</span>
+                    <ShieldCheck className="w-3 h-3 text-emerald-300 inline" />
+                  </p>
+                  <p className="text-[10px] text-sky-200">Founder &amp; Super Admin</p>
                 </div>
                 <ChevronDown className="w-3.5 h-3.5 text-sky-200 hidden sm:block" />
               </button>
 
               {profileDropdownOpen && (
                 <div 
-                  className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-200 text-slate-800 py-1.5 z-50 animate-in fade-in text-xs font-medium"
+                  className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 text-slate-800 py-2 z-50 animate-in fade-in text-xs font-medium"
                   onMouseLeave={() => setProfileDropdownOpen(false)}
                 >
-                  <div className="px-4 py-2 border-b border-slate-100">
-                    <p className="font-bold text-slate-800">Super Administrator</p>
-                    <p className="text-[11px] text-slate-500">admin@easystore.pk</p>
+                  <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-3 bg-slate-50/60 rounded-t-2xl">
+                    <img
+                      src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+                      alt="Founder Abdullah"
+                      referrerPolicy="no-referrer"
+                      className="w-11 h-11 rounded-full object-cover ring-2 ring-[#0284c7]"
+                    />
+                    <div>
+                      <p className="font-bold text-slate-900 text-sm flex items-center gap-1">
+                        <span>عبداللہ (Founder)</span>
+                      </p>
+                      <p className="text-[11px] text-slate-500">jhangelectronics763@gmail.com</p>
+                      <span className="inline-block mt-0.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                        Verified Store Owner
+                      </span>
+                    </div>
                   </div>
                   <button
                     onClick={() => {

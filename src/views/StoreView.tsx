@@ -147,7 +147,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
                   <span>Fast Delivery</span>
                 </p>
 
-                <div className="pt-2">
+                <div className="pt-2 flex items-center gap-3 flex-wrap">
                   <button
                     onClick={() => {
                       window.scrollTo({ top: 800, behavior: 'smooth' });
@@ -157,6 +157,23 @@ export const StoreView: React.FC<StoreViewProps> = ({
                     <span>Shop Now</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
+
+                  {/* Founder Trust Tag with Abdullah Portrait */}
+                  <div className="flex items-center gap-2.5 bg-white/90 backdrop-blur-xs px-3 py-1.5 rounded-xl border border-sky-200/80 shadow-xs">
+                    <img
+                      src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+                      alt="Founder Abdullah"
+                      referrerPolicy="no-referrer"
+                      className="w-9 h-9 rounded-full object-cover ring-2 ring-[#0284c7]"
+                    />
+                    <div className="leading-tight text-left">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-bold text-slate-900">عبداللہ (Founder)</span>
+                        <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      </div>
+                      <span className="text-[10px] text-slate-500 font-medium">100% Guaranteed Original Products</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

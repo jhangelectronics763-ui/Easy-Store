@@ -73,16 +73,27 @@ export const AdminGateModal: React.FC<AdminGateModalProps> = ({ onUnlockSuccess 
           <X className="w-5 h-5" />
         </button>
 
-        {/* Security Icon matching store theme */}
+        {/* Security Icon & Founder Portrait */}
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-14 h-14 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center mb-3 text-[#0284c7] shadow-md shadow-sky-500/10">
-            <Lock className="w-7 h-7" />
+          <div className="relative mb-3">
+            <img
+              src="/src/assets/images/store_owner_portrait_1791829517852.jpg"
+              alt="Founder Abdullah"
+              referrerPolicy="no-referrer"
+              className="w-16 h-16 rounded-full object-cover ring-4 ring-[#0284c7] shadow-lg"
+            />
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#0284c7] text-white flex items-center justify-center shadow-xs">
+              <Lock className="w-3.5 h-3.5" />
+            </div>
           </div>
           <h2 className="text-xl font-black text-[#0f3460] tracking-tight">
             Security Admin Gateway
           </h2>
+          <p className="text-xs text-slate-600 font-medium mt-0.5">
+            Store Founder: <strong className="text-slate-800">عبداللہ (Abdullah)</strong>
+          </p>
           <p className="text-xs text-slate-500 mt-1 max-w-xs leading-relaxed">
-            Enter the verified master administrative passphrase to manage orders, products, and inventory.
+            Enter the verified master administrative passphrase to unlock store management, orders, and products.
           </p>
         </div>
 
