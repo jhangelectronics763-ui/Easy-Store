@@ -4,6 +4,7 @@
   "description": "Easy Store e-commerce website and admin panel",
   "main": "server.js",
   "scripts": {
+    "build": "npm run check",
     "start": "node server.js",
     "check": "node --check server.js && node --check serverlib.js",
     "test:smoke": "node scripts/smoke-test.js"
