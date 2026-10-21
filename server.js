@@ -288,7 +288,7 @@ function serve(req, res, u) {
   if (p === '/.well-known/assetlinks.json') p = '/assetlinks.json'; /* Android app (Play Store / TWA) link verification */
   const isUpload = p.startsWith('/uploads/');
   const base = isUpload ? UP_DIR : ROOT;
-  const relative = isUpload ? p.slice('/uploads/'.length) : p.replace(/^\\/+/, '');
+  const relative = isUpload ? p.slice('/uploads/'.length) : p.replace(/^\/+/, '');
   const f = path.resolve(base, relative), ext = path.extname(f).toLowerCase();
   const notFound = () => { res.writeHead(404, { 'Content-Type': MIME['.html'] }); fs.createReadStream(path.join(ROOT, '404.html')).pipe(res); };
   if (!(f.startsWith(base + path.sep)) || BLOCK.test(p) || !MIME[ext]) return notFound();
