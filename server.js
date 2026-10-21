@@ -5,7 +5,8 @@
 const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto');
 const lib = require('./serverlib');
 const ROOT = __dirname, PORT = +process.env.PORT || 3000;
-const DATA_DIR = path.join(ROOT, 'data'), UP_DIR = path.join(ROOT, 'uploads');
+const DATA_DIR = path.resolve(process.env.EASYSTORE_DATA_DIR || path.join(ROOT, 'data'));
+const UP_DIR = path.resolve(process.env.EASYSTORE_UPLOADS_DIR || path.join(ROOT, 'uploads'));
 const SITE_FILE = path.join(DATA_DIR, 'site.json'), AUTH_FILE = path.join(DATA_DIR, 'auth.json');
 fs.mkdirSync(DATA_DIR, { recursive: true }); fs.mkdirSync(UP_DIR, { recursive: true });
 
@@ -31,7 +32,7 @@ const upsertCustomer = (c, ev) => {
   if (ev === 'login' || ev === 'register') { x.logins = (x.logins || 0) + 1; x.last_login = now; }
   if (ev === 'order') x.last_order = now;
 };
-const BK_DIR = path.join(ROOT, 'backups'); fs.mkdirSync(BK_DIR, { recursive: true });
+const BK_DIR = path.resolve(process.env.EASYSTORE_BACKUPS_DIR || path.join(ROOT, 'backups')); fs.mkdirSync(BK_DIR, { recursive: true });
 const buildBackup = () => {
   const files = {};
   for (const f of fs.readdirSync(UP_DIR)) { if (!/^[\w.-]+\.(png|jpg|jpeg|webp|gif)$/i.test(f)) continue; const ext = f.split('.').pop().toLowerCase(); files[f] = 'data:image/' + (ext === 'jpg' ? 'jpeg' : ext) + ';base64,' + fs.readFileSync(path.join(UP_DIR, f)).toString('base64'); }
@@ -285,9 +286,12 @@ function serve(req, res, u) {
   let p; try { p = decodeURIComponent(u.pathname); } catch (e) { p = '/404.html'; }
   if (p === '/') p = '/index.html';
   if (p === '/.well-known/assetlinks.json') p = '/assetlinks.json'; /* Android app (Play Store / TWA) link verification */
-  const f = path.join(ROOT, path.normalize(p)), ext = path.extname(f).toLowerCase();
+  const isUpload = p.startsWith('/uploads/');
+  const base = isUpload ? UP_DIR : ROOT;
+  const relative = isUpload ? p.slice('/uploads/'.length) : p.replace(/^\\/+/, '');
+  const f = path.resolve(base, relative), ext = path.extname(f).toLowerCase();
   const notFound = () => { res.writeHead(404, { 'Content-Type': MIME['.html'] }); fs.createReadStream(path.join(ROOT, '404.html')).pipe(res); };
-  if (!f.startsWith(ROOT + path.sep) || BLOCK.test(p) || !MIME[ext]) return notFound();
+  if (!(f.startsWith(base + path.sep)) || BLOCK.test(p) || !MIME[ext]) return notFound();
   fs.stat(f, (err, st) => {
     if (err || !st.isFile()) return notFound();
     const img = /^\.(png|jpe?g|gif|webp|svg|ico)$/.test(ext);
