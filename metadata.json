@@ -1,6 +1,0 @@
-{
-  "name": "Easy Store - Modern E-Commerce Platform",
-  "description": "Full-featured online store with product catalog, search & filters, shopping cart, verified checkout, customer order history, and secure admin management portal.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
