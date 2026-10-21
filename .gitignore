@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+node_modules/
+filestore/
+*.swp
+.idea/
+.vscode/
+data/site.json
+data/auth.json
+uploads/*
+!uploads/.gitkeep

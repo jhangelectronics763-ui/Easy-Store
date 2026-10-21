@@ -1,0 +1,16 @@
+{
+  "name": "easy-store",
+  "version": "1.0.0",
+  "description": "Easy Store e-commerce website and admin panel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check serverlib.js",
+    "test:smoke": "node scripts/smoke-test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
