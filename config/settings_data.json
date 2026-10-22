@@ -1,0 +1,12 @@
+{
+  "current": {
+    "brand_green": "#0b5d2a",
+    "chat_enabled": true,
+    "chat_name": "EasyStore Assistant",
+    "chat_welcome": "Assalam-o-alaikum! How can we help you today?",
+    "chat_whatsapp": ""
+  },
+  "presets": {
+    "Easy Store": {}
+  }
+}

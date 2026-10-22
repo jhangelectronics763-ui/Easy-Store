@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Easy Store branding",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Store logo"
+      },
+      {
+        "type": "color",
+        "id": "brand_green",
+        "label": "Brand green",
+        "default": "#0b5d2a"
+      },
+      {
+        "type": "color",
+        "id": "brand_ink",
+        "label": "Text color",
+        "default": "#171a17"
+      },
+      {
+        "type": "text",
+        "id": "store_tagline",
+        "label": "Store tagline",
+        "default": "Your everyday shopping destination"
+      }
+    ]
+  },
+  {
+    "name": "Customer support chat",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "chat_enabled",
+        "label": "Enable help chat",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "chat_name",
+        "label": "Chat title",
+        "default": "EasyStore Assistant"
+      },
+      {
+        "type": "text",
+        "id": "chat_welcome",
+        "label": "Welcome message",
+        "default": "Assalam-o-alaikum! How can we help you today?"
+      },
+      {
+        "type": "text",
+        "id": "chat_whatsapp",
+        "label": "WhatsApp number (with country code)",
+        "default": ""
+      }
+    ]
+  }
+]

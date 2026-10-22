@@ -1,0 +1,7 @@
+<div class="es-announcement">{{ section.settings.announcement | escape }}</div>
+<header class="es-header"><div class="es-header-inner">
+<a class="es-logo" href="{{ routes.root_url }}">{% if settings.logo != blank %}{{ settings.logo | image_url: width: 240 | image_tag: alt: shop.name }}{% else %}<span class="es-logo-mark">E</span><span>{{ shop.name | default: 'Easy Store' }}</span>{% endif %}</a>
+<form class="es-search" action="{{ routes.search_url }}" method="get" role="search"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products, brands and more" aria-label="Search store"><button type="submit">Search</button></form>
+<nav class="es-actions" aria-label="Customer links"><a href="{{ routes.account_url }}">Account</a><a href="{{ routes.cart_url }}">Cart <span class="es-count">{{ cart.item_count }}</span></a></nav>
+</div><nav class="es-nav" aria-label="Main navigation"><a href="{{ routes.all_products_collection_url }}">All products</a>{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}</nav></header>
+{% schema %}{"name":"Easy Store header","settings":[{"type":"text","id":"announcement","label":"Announcement bar","default":"Welcome to Easy Store • Delivery across Pakistan"},{"type":"link_list","id":"menu","label":"Navigation menu"}]}{% endschema %}

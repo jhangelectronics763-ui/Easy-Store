@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "hero": {
+      "type": "es-hero",
+      "settings": {}
+    },
+    "featured": {
+      "type": "es-featured-collection",
+      "settings": {}
+    },
+    "categories": {
+      "type": "es-category-grid",
+      "settings": {},
+      "blocks": {
+        "mobiles": {
+          "type": "category",
+          "settings": {
+            "title": "Mobiles",
+            "collection": "mobiles"
+          }
+        },
+        "electronics": {
+          "type": "category",
+          "settings": {
+            "title": "Electronics",
+            "collection": "electronics"
+          }
+        },
+        "fashion": {
+          "type": "category",
+          "settings": {
+            "title": "Fashion",
+            "collection": "fashion"
+          }
+        },
+        "home": {
+          "type": "category",
+          "settings": {
+            "title": "Home & Kitchen",
+            "collection": "home-kitchen"
+          }
+        },
+        "beauty": {
+          "type": "category",
+          "settings": {
+            "title": "Beauty",
+            "collection": "beauty"
+          }
+        },
+        "toys": {
+          "type": "category",
+          "settings": {
+            "title": "Toys & Games",
+            "collection": "toys-games"
+          }
+        },
+        "computers": {
+          "type": "category",
+          "settings": {
+            "title": "Laptops & Computers",
+            "collection": "laptops-computers"
+          }
+        },
+        "sports": {
+          "type": "category",
+          "settings": {
+            "title": "Sports",
+            "collection": "sports"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "featured"
+  ]
+}
