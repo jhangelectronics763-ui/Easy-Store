@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "hero": {
+      "type": "es-hero",
+      "settings": {}
+    },
+    "featured": {
+      "type": "es-featured-collection",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "featured"
+  ]
+}
