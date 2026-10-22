@@ -235,6 +235,12 @@
       "image": "cat-electronics.svg"
     },
     {
+      "slug": "laptops-computers",
+      "name": "Laptops & Computers",
+      "name_ur": "لیپ ٹاپ اور کمپیوٹرز",
+      "image": "cat-laptops-computers.svg"
+    },
+    {
       "slug": "fashion",
       "name": "Fashion",
       "name_ur": "فیشن",
