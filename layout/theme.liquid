@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code | default: 'en' }}" dir="{% if request.locale.iso_code contains 'ur' or request.locale.iso_code contains 'ar' %}rtl{% else %}ltr{% endif %}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="{{ settings.brand_green }}">
+<link rel="canonical" href="{{ canonical_url }}">
+<title>{{ page_title }}{% if current_tags %} — {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+{% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+{{ content_for_header }}
+{{ 'easystore.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'easystore.js' | asset_url }}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#MainContent">Skip to content</a>
+{% sections 'header-group' %}
+<main id="MainContent" role="main">{{ content_for_layout }}</main>
+{% sections 'footer-group' %}
+{% if settings.chat_enabled %}
+<div class="es-chat" data-chat-name="{{ settings.chat_name | escape }}" data-chat-welcome="{{ settings.chat_welcome | escape }}" data-chat-whatsapp="{{ settings.chat_whatsapp | escape }}">
+<button class="es-chat-toggle" type="button" aria-expanded="false" aria-controls="es-chat-panel" aria-label="Open Easy Store chat">☏</button>
+<section class="es-chat-panel" id="es-chat-panel" hidden role="dialog" aria-label="Easy Store customer support">
+<header><div><strong>{{ settings.chat_name | escape }}</strong><small>Easy Store customer support</small></div><button class="es-chat-close" type="button" aria-label="Close chat">×</button></header>
+<div class="es-chat-messages" aria-live="polite"><p class="es-chat-bubble">{{ settings.chat_welcome | escape }}</p></div>
+<div class="es-chat-quick"><button type="button" data-chat-question="How can I track my order?">Track order</button><button type="button" data-chat-question="What are the delivery charges?">Delivery</button><button type="button" data-chat-question="How can I contact support?">Support</button></div>
+<form class="es-chat-form"><label class="visually-hidden" for="es-chat-input">Your message</label><input id="es-chat-input" maxlength="400" autocomplete="off" placeholder="Type your message…"><button type="submit">Send</button></form>
+</section></div>
+{% endif %}
+</body>
+</html>
