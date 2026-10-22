@@ -1,6 +1,88 @@
+{% doc %}
+  @prompt
+    Create a professional responsive Mini Website Widget for Easy Store Pakistan, matching its existing green branding. Use a compact floating green rounded pill with an app icon and editable 'Get the App' text, smooth shadow, and a separate small black circular close button with a white ✖ immediately beside it. Default bottom-left; support bottom-right, adjustable bottom/side spacing, mobile safe areas, and avoid overlap with cart, WhatsApp, chat, or other floating controls where detectable. Clicking the pill opens a configurable app download URL; if unset, display an editable fallback message instead of a broken link. Closing hides immediately and persists for the current browser session. Provide an editor setting to reset/re-enable visibility after dismissal, explaining its scope if browser session state cannot be reset centrally. Group merchant-editable controls as 'Mini Website Widget': enabled, button label, app icon image picker, download URL, background/text colors, left/right position, bottom/side spacing, desktop/mobile/both visibility, and visibility on homepage and product pages. Use accessible keyboard controls and reduced-motion-friendly styling. Settings should be in the theme editor, not a separate Shopify admin app/dashboard. Make available site-wide where supported; do not claim a single-template block automatically appears across all pages.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign ai_homepage = false %}{% if request.page_type == 'index' %}{% assign ai_homepage = true %}{% endif %}
+{% assign ai_product_page = false %}{% if request.page_type == 'product' %}{% assign ai_product_page = true %}{% endif %}
+{% assign ai_show_page = true %}{% if ai_homepage and block.settings.show_homepage == false %}{% assign ai_show_page = false %}{% endif %}{% if ai_product_page and block.settings.show_product_pages == false %}{% assign ai_show_page = false %}{% endif %}
+{% style %}
+  .ai-mini-widget-{{ ai_gen_id }} { display:block; position:fixed; z-index:49; width:100%; max-width:100%; pointer-events:none; bottom:calc({{ block.settings.bottom_spacing }}px + env(safe-area-inset-bottom, 0px)); {% if block.settings.horizontal_position == 'left' %}left:calc({{ block.settings.side_spacing }}px + env(safe-area-inset-left, 0px)); right:auto;{% else %}right:calc({{ block.settings.side_spacing }}px + env(safe-area-inset-right, 0px)); left:auto;{% endif %} }
+  .ai-mini-widget-{{ ai_gen_id }}[hidden] { display:none; }
+  .ai-mini-widget-{{ ai_gen_id }}__row { display:flex; align-items:center; gap:8px; width:max-content; max-width:min({{ block.settings.desktop_width_percent }}vw, calc(100vw - 24px)); pointer-events:auto; }
+  .ai-mini-widget-{{ ai_gen_id }}__pill { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:50px; max-width:100%; padding:10px 17px; border:0; border-radius:999px; background:{{ block.settings.background_color }}; color:{{ block.settings.text_color }}; box-shadow:0 5px 18px rgba(0,0,0,.22); font:inherit; font-weight:700; line-height:1.25; text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .ai-mini-widget-{{ ai_gen_id }}__pill:hover { box-shadow:0 7px 22px rgba(0,0,0,.28); }
+  .ai-mini-widget-{{ ai_gen_id }}__pill:focus-visible,.ai-mini-widget-{{ ai_gen_id }}__close:focus-visible { outline:3px solid #111; outline-offset:3px; }
+  .ai-mini-widget-{{ ai_gen_id }}__icon,.ai-mini-widget-{{ ai_gen_id }}__icon-placeholder { display:block; flex:0 0 28px; width:28px; height:28px; border-radius:7px; object-fit:cover; }
+  .ai-mini-widget-{{ ai_gen_id }}__icon-placeholder { background:rgba(255,255,255,.18); }
+  .ai-mini-widget-{{ ai_gen_id }}__icon-placeholder svg { display:block; width:100%; height:100%; }
+  .ai-mini-widget-{{ ai_gen_id }}__label { overflow-wrap:anywhere; }
+  .ai-mini-widget-{{ ai_gen_id }}__close { display:inline-flex; align-items:center; justify-content:center; flex:0 0 30px; width:30px; height:30px; padding:0; border:0; border-radius:50%; background:#111; color:#fff; font:inherit; font-size:16px; line-height:1; cursor:pointer; }
+  .ai-mini-widget-{{ ai_gen_id }}__fallback { position:absolute; bottom:calc(100% + 10px); width:min(280px,calc(100vw - 32px)); padding:12px 14px; border-radius:10px; background:#fff; color:#171717; box-shadow:0 4px 16px rgba(0,0,0,.2); font-size:14px; line-height:1.45; }
+  .ai-mini-widget-{{ ai_gen_id }}__fallback[hidden] { display:none; }
+  @media(max-width:749px) { .ai-mini-widget-{{ ai_gen_id }}[data-device='desktop'] { display:none; } .ai-mini-widget-{{ ai_gen_id }}__row { max-width:calc(100vw - 24px); } }
+  @media(min-width:750px) { .ai-mini-widget-{{ ai_gen_id }}[data-device='mobile'] { display:none; } }
+  @media(prefers-reduced-motion:no-preference) { .ai-mini-widget-{{ ai_gen_id }}__pill { transition:box-shadow 160ms ease; } }
+{% endstyle %}
+{% if block.settings.enabled and ai_show_page %}
+<mini-app-widget-{{ ai_gen_id }} class="ai-mini-widget-{{ ai_gen_id }}" data-device="{{ block.settings.device_visibility }}" data-session-key="mini-app-dismissed-{{ block.id }}" data-reset="{{ block.settings.reset_visibility }}" {{ block.shopify_attributes }}>
+  <div class="ai-mini-widget-{{ ai_gen_id }}__row">
+    {% if block.settings.download_url != blank %}<a class="ai-mini-widget-{{ ai_gen_id }}__pill" href="{{ block.settings.download_url }}" target="_blank" rel="noopener noreferrer">{% else %}<button class="ai-mini-widget-{{ ai_gen_id }}__pill" type="button" aria-expanded="false">{% endif %}
+    {% if block.settings.app_icon %}<img class="ai-mini-widget-{{ ai_gen_id }}__icon" src="{{ block.settings.app_icon | image_url: width: 96 }}" alt="" width="28" height="28" loading="lazy">{% else %}<span class="ai-mini-widget-{{ ai_gen_id }}__icon-placeholder" aria-hidden="true">{{ 'image' | placeholder_svg_tag }}</span>{% endif %}
+    <span class="ai-mini-widget-{{ ai_gen_id }}__label">{{ block.settings.button_label | escape }}</span>
+    {% if block.settings.download_url != blank %}</a>{% else %}</button>{% endif %}
+    <button class="ai-mini-widget-{{ ai_gen_id }}__close" type="button" aria-label="Close app widget">✖</button>
+  </div>
+  {% unless block.settings.download_url != blank %}<div class="ai-mini-widget-{{ ai_gen_id }}__fallback" role="status" hidden>{{ block.settings.fallback_message | escape }}</div>{% endunless %}
+</mini-app-widget-{{ ai_gen_id }}>
+{% endif %}
+<script>
+(function(){
+  const tagName='mini-app-widget-{{ ai_gen_id }}';
+  if(customElements.get(tagName)) return;
+  class MiniAppWidget{{ ai_gen_id }} extends HTMLElement {
+    connectedCallback(){
+      const key=this.dataset.sessionKey;
+      if(this.dataset.reset!=='true' && sessionStorage.getItem(key)==='true') this.hidden=true;
+      this.querySelector('.ai-mini-widget-{{ ai_gen_id }}__close').addEventListener('click',()=>{this.hidden=true;if(this.dataset.reset!=='true')sessionStorage.setItem(key,'true');});
+      const trigger=this.querySelector('button.ai-mini-widget-{{ ai_gen_id }}__pill');
+      if(trigger){const fallback=this.querySelector('.ai-mini-widget-{{ ai_gen_id }}__fallback');trigger.addEventListener('click',()=>{fallback.hidden=!fallback.hidden;trigger.setAttribute('aria-expanded',String(!fallback.hidden));});}
+      this.avoidFloatingControls();
+    }
+    avoidFloatingControls(){
+      const row=this.querySelector('.ai-mini-widget-{{ ai_gen_id }}__row');
+      const controls=Array.from(document.querySelectorAll('a,button,[role="button"],iframe')).filter(el=>{if(this.contains(el)||el.closest('header,nav,main,footer'))return false;const s=getComputedStyle(el);return(s.position==='fixed'||s.position==='sticky')&&el.getClientRects().length;});
+      const a=row.getBoundingClientRect();
+      if(controls.some(el=>{const b=el.getBoundingClientRect();return a.left<b.right+12&&a.right+12>b.left&&a.top<b.bottom+12&&a.bottom+12>b.top;})){this.style.bottom=`calc(${parseInt(getComputedStyle(this).bottom,10)+58}px + env(safe-area-inset-bottom, 0px))`;}
+    }
+  }
+  customElements.define(tagName,MiniAppWidget{{ ai_gen_id }});
+})();
+</script>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name":"Mini Website Widget",
+  "settings":[
+    {"type":"header","content":"Mini Website Widget"},
+    {"type":"checkbox","id":"enabled","label":"Enabled","default":true},
+    {"type":"text","id":"button_label","label":"Button label","default":"Get the App"},
+    {"type":"image_picker","id":"app_icon","label":"App icon"},
+    {"type":"url","id":"download_url","label":"Download URL"},
+    {"type":"text","id":"fallback_message","label":"Fallback message","default":"The app download link is not available yet."},
+    {"type":"color","id":"background_color","label":"Background","default":"#0b5d2a"},
+    {"type":"color","id":"text_color","label":"Text","default":"#ffffff"},
+    {"type":"select","id":"horizontal_position","label":"Horizontal position","options":[{"value":"left","label":"Bottom-left"},{"value":"right","label":"Bottom-right"}],"default":"left"},
+    {"type":"range","id":"bottom_spacing","label":"Bottom spacing","min":0,"max":100,"step":5,"unit":"px","default":25},
+    {"type":"range","id":"side_spacing","label":"Side spacing","min":0,"max":100,"step":5,"unit":"px","default":20},
+    {"type":"select","id":"device_visibility","label":"Device visibility","options":[{"value":"both","label":"Desktop and mobile"},{"value":"desktop","label":"Desktop only"},{"value":"mobile","label":"Mobile only"}],"default":"both"},
+    {"type":"checkbox","id":"show_homepage","label":"Show on homepage","default":true},
+    {"type":"checkbox","id":"show_product_pages","label":"Show on product pages","default":true},
+    {"type":"checkbox","id":"reset_visibility","label":"Re-enable after dismissal","default":false},
+    {"type":"paragraph","content":"Dismissal is stored in this browser session. Turn on re-enable to show the widget despite a dismissal; this cannot clear session state across visitors centrally."},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100}
+  ],
+  "presets":[{"name":"Mini Website Widget"}],
+  "tag":null,
+  "class":"mini-website-widget"
+}
 {% endschema %}
