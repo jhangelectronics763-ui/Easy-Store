@@ -7,10 +7,16 @@
     "featured": {
       "type": "es-featured-collection",
       "settings": {}
+    },
+    "categories": {
+      "type": "es-category-grid",
+      "settings": {},
+      "blocks": {}
     }
   },
   "order": [
     "hero",
+    "categories",
     "featured"
   ]
 }
