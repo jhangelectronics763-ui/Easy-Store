@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "es-featured-collection",
+      "settings": {
+        "eyebrow": "SHOP THE COLLECTION",
+        "heading": "Explore products"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
